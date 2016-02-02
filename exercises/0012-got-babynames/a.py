@@ -2,7 +2,7 @@ import os
 import requests
 from os.path import basename
 
-#os.makedirs('tempdata', exist_ok = True)
+os.makedirs('tempdata', exist_ok = True)
 url = 'http://stash.compciv.org/ssa_baby_names/ssa-babynames-nationwide-2014.txt'
 
 response = requests.get(url)
