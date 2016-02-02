@@ -14,7 +14,7 @@ for line in got_file:
 	if sex == 'F': 
 		girl_babies.append(name)
 		baby_count.append(babies)
-	else:
+	elif sex == 'M': 				#just making sure to count only boy babies
 		boy_babies.append(name)
 		baby_count.append(babies)
 
