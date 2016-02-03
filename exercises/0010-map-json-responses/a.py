@@ -29,7 +29,7 @@ print("Wrote",linenum1, "lines and", len(data1),"characters")
 print("---")
 
 ffile2 = open(file2, 'w')
-ffile2.write(data1)
+ffile2.write(data2)
 ffile2.close()
 print("Downloading from:", url2)
 print("Writing to:", file2)
