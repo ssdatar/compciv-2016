@@ -32,7 +32,4 @@ for (k, v) in filtered_dict.items():
 a = sorted(filtered_list, key=longest_names, reverse=True)
 
 for i in range(10):
-	if i == 0:
-		print(a[i][0], str(a[i][1]).rjust(12))
-	else:
-		print(a[i][0], str(a[i][1]).rjust(14))
+	print(a[i][0], str(a[i][1]).rjust(24 - len(a[i][0])))
