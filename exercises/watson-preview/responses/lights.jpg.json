@@ -1,0 +1,20 @@
+{"images":[
+	{"image":"lights.jpg",
+	 "scores":[
+		 {"classifier_id":"Fireworks","name":"Fireworks","score":0.75731},
+		 {"classifier_id":"Fireworks","name":"Fireworks","score":0.75731},
+		 {"classifier_id":"Fireworks","name":"Fireworks","score":0.731187},
+		 {"classifier_id":"Fireworks","name":"Fireworks","score":0.731187},
+		 {"classifier_id":"Sky_Scene","name":"Sky_Scene","score":0.718535},
+		 {"classifier_id":"Fashion_Accessory","name":"Fashion_Accessory","score":0.714049},
+		 {"classifier_id":"Lamp","name":"Lamp","score":0.70128},
+		 {"classifier_id":"Watch","name":"Watch","score":0.697413},
+		 {"classifier_id":"Rooster","name":"Rooster","score":0.696659},
+		 {"classifier_id":"Coral_Reef","name":"Coral_Reef","score":0.595052},
+		 {"classifier_id":"Activity","name":"Activity","score":0.593266},
+		 {"classifier_id":"Clothing_Store","name":"Clothing_Store","score":0.589192},
+		 {"classifier_id":"Burning","name":"Burning","score":0.588937},
+		 {"classifier_id":"Discotheque","name":"Discotheque","score":0.587439},
+		 {"classifier_id":"News_Studio","name":"News_Studio","score":0.576694},
+		 {"classifier_id":"Blue","name":"Blue","score":0.522253}]}]
+}

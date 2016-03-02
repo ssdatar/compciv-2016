@@ -1,0 +1,17 @@
+{"images":[
+	{"image":"ski.jpg",
+	 "scores":[
+		 {"classifier_id":"White","name":"White","score":0.737286},
+		 {"classifier_id":"Figure_Skating","name":"Figure_Skating","score":0.726319},
+		 {"classifier_id":"Sled","name":"Sled","score":0.693999},
+		 {"classifier_id":"Surfboard","name":"Surfboard","score":0.684462},
+		 {"classifier_id":"Snow_Vehicle","name":"Snow_Vehicle","score":0.670023},
+		 {"classifier_id":"Winter_Sport","name":"Winter_Sport","score":0.667577},
+		 {"classifier_id":"Snow_Scene","name":"Snow_Scene","score":0.65866},
+		 {"classifier_id":"Vehicle","name":"Vehicle","score":0.640071},
+		 {"classifier_id":"Sports","name":"Sports","score":0.633038},
+		 {"classifier_id":"Activity","name":"Activity","score":0.610914},
+		 {"classifier_id":"Crevasse","name":"Crevasse","score":0.608203},
+		 {"classifier_id":"Scene","name":"Scene","score":0.602764},
+		 {"classifier_id":"Winter_Scene","name":"Winter_Scene","score":0.601186}]}]
+}

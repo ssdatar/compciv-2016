@@ -1,0 +1,18 @@
+{"images":[
+	{"image":"potus.jpg",
+	 "scores":[
+		 {"classifier_id":"Graduation","name":"Graduation","score":0.671118},
+		 {"classifier_id":"Clothing","name":"Clothing","score":0.653459},
+		 {"classifier_id":"Child_Room","name":"Child_Room","score":0.613918},
+		 {"classifier_id":"Judo","name":"Judo","score":0.609875},
+		 {"classifier_id":"Clothing_Store","name":"Clothing_Store","score":0.594318},
+		 {"classifier_id":"Vise","name":"Vise","score":0.587637},
+		 {"classifier_id":"Sauna","name":"Sauna","score":0.574585},
+		 {"classifier_id":"Coat","name":"Coat","score":0.572715},
+		 {"classifier_id":"Child","name":"Child","score":0.569522},
+		 {"classifier_id":"Repairing","name":"Repairing","score":0.555103},
+		 {"classifier_id":"Mixed_Color","name":"Mixed_Color","score":0.549724},
+		 {"classifier_id":"Bobsledding","name":"Bobsledding","score":0.546289},
+		 {"classifier_id":"Nursery","name":"Nursery","score":0.519167},
+		 {"classifier_id":"Mug","name":"Mug","score":0.514908}]}]
+}

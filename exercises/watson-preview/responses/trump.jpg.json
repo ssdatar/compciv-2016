@@ -1,0 +1,18 @@
+{"images":[
+	{"image":"trump.jpg",
+	 "scores":[
+		 {"classifier_id":"Animal_Tending","name":"Animal_Tending","score":0.743497},
+		 {"classifier_id":"Rabbit","name":"Rabbit","score":0.736354},
+		 {"classifier_id":"Rabbit,_Pika_or_Hare","name":"Rabbit,_Pika_or_Hare","score":0.664426},
+		 {"classifier_id":"Waterfall","name":"Waterfall","score":0.635694},
+		 {"classifier_id":"Celebration","name":"Celebration","score":0.629783},
+		 {"classifier_id":"Natural_Activity","name":"Natural_Activity","score":0.618037},
+		 {"classifier_id":"Koala","name":"Koala","score":0.616422},
+		 {"classifier_id":"Scene","name":"Scene","score":0.608684},
+		 {"classifier_id":"Animal","name":"Animal","score":0.598431},
+		 {"classifier_id":"Engine_Room","name":"Engine_Room","score":0.581827},
+		 {"classifier_id":"Indoors","name":"Indoors","score":0.558224},
+		 {"classifier_id":"Wedding","name":"Wedding","score":0.550059},
+		 {"classifier_id":"Gray","name":"Gray","score":0.514982},
+		 {"classifier_id":"Hollywood","name":"Hollywood","score":0.51407}]}]
+}
