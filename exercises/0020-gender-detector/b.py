@@ -22,10 +22,10 @@ for fname in required_years:
 		name, gender, babies = line.split(',')
 		
 		if gender == 'F':
-			counts[0] += babies
+			counts[0] += int(babies)
 		
 		if gender == 'M':
-			counts[1] += babies
+			counts[1] += int(babies)
 
 print('F:', str(counts[0]).rjust(6),
       'M:', str(counts[1]).rjust(6))
