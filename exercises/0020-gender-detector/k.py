@@ -46,17 +46,17 @@ girl_count = 0
 for i in answer:
     print(i['name'],i['gender'], i['ratio'])
     if i['gender'] == 'F':
-        girls += 1
-        girl_count += int(i['females'])
-        boy_count += int(i['males'])
+        girls += 1                      #count gender
+        girl_count += int(i['females']) #count girls
+        boy_count += int(i['males'])    #count boys
     
     elif i['gender'] == 'M':
-        boys += 1
-        girl_count += int(i['females'])
-        boy_count += int(i['males'])
+        boys += 1                       #count gender                  
+        girl_count += int(i['females']) #count girls
+        boy_count += int(i['males'])    #count boys
 
     else:
-        na += 1
+        na += 1 #count na
 print('Total:')
 print('F:', girls, 'M:', boys, 'NA:', na)
 print('females:', girl_count, 'males:', boy_count)
