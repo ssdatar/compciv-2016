@@ -48,3 +48,7 @@ with open(output_csv, 'w') as csv_out:
     for row in sorted_names:
         writer.writerow(row)
 
+with open(output_csv, 'r') as finalfile:
+    first_five = finalfile.readlines()[0:5]
+    for line in first_five:
+        print(line.strip())
