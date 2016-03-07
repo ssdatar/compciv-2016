@@ -7,25 +7,24 @@ thefile = join(folder, 'wrangledbabynames.csv')
 input_names = ['Michael', 'Kelly', 'Kanye', 'THOR', 'casey', 'Arya','ZZZblahblah']
 answer = []
 
-for name in input_names:
-    with open(thefile, 'r') as csv_in:
-        for line in csv_in:
-            temp = line.strip().split(',')
-            result = {}
+def detect_gender_from_csv(name):
+  with open(thefile, 'r') as csv_in:
+    for line in csv_in:
+        temp = line.strip().split(',')
+        result = {}
 
-            #Check if name is there
-            if name.lower() == temp[0].lower():
-                #if yes, store results in result dict
-                result = {'name': name, 
-                          'gender': temp[1],
-                          'ratio': temp[2],
-                          'males': temp[4],
-                          'females': temp[3],
-                          'total': temp[5]}
-                #append to master list and break out of loop
-                answer.append(result)
-                break
-        
+        #Check if name is there
+        if name.lower() == temp[0].lower():
+            #if yes, store results in result dict
+            result = {'name': name, 
+                      'gender': temp[1],
+                      'ratio': temp[2],
+                      'males': temp[4],
+                      'females': temp[3],
+                      'total': temp[5]}
+            #append to master list and break out of loop
+            return result
+
     #if nothing found, then append this to master list
     if not len(result):
         result = {'name': name, 
@@ -34,8 +33,12 @@ for name in input_names:
                       'males': None,
                       'females': None,
                       'total': 0}
-        answer.append(result)
+        return result
 
+
+for name in input_names:
+  answer.append(detect_gender_from_csv(name))
+    
 boys = 0
 girls = 0
 na = 0
