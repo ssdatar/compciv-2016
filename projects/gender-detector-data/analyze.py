@@ -59,6 +59,7 @@ for year in grants_per_year:
 	print('Women got', grants_per_year[year]['F'], 'dollars')
 	print('Grant gender ratio', 
           round(grants_per_year[year]['M'] / grants_per_year[year]['F'], 2))
+	print('\n')
 
 # Analyze gender distribution of types of grants
 focus = {}
@@ -76,3 +77,23 @@ with open(classified_path, 'r') as csv_in:
 		gender = row['gender']
 		grant = int(row['Grant Amount'])
 		focus[grant_focus][gender] += grant
+
+# Analyze gender distribution of who took up LGBT projects
+
+lgbt_men = 0
+lgbt_women = 0
+
+for f in focus:
+	if 'L/G/B' in f:
+		if not focus[f]['M']:
+			lgbt_men += 1
+		if not focus[f]['F']:
+			lgbt_women += 1
+
+	print('Grant focus was:', f)
+	print('Amount received by men for this focus:', focus[f]['M'])
+	print('Amount received by women for this focus:', focus[f]['F'])
+	print('\n')
+
+print('Number of men who took up LGBT projects', lgbt_men)
+print('Number of women who took up LGBT projects', lgbt_women)
