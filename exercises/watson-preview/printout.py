@@ -29,10 +29,9 @@ for json_response in glob(join('responses', '*.json')):
 	# break
 	k = 0
 	for i in scores:
-		html_file.write('<h3>{}) {} -- {}</h3>'.format(k + 1, i['name'], i['score']))
+		html_file.write('<p>{}) {} -- {}</p>'.format(k + 1, i['name'], i['score']))
 		k += 1
 
 html_file.write('</div></div></body>')
 
 html_file.close()
-
