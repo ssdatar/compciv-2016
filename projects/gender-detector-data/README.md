@@ -3,7 +3,7 @@
 
 ## Introduction
 
-This is an automated analysis of the [grants made by the San Francisco Arts Commission to individual artists](http://www.sfartscommission.org/CAE/grants/grant-programs-and-applications/). These grants are made by the Individual Artists Commission and can be up to $15,000. Preliminary analysis shows us that even though women have got more in total grants than men since 2004, the average grant amount for women is slightly lower -- though by $136.
+This is an automated analysis of the [grants made by the San Francisco Arts Commission to individual artists](http://www.sfartscommission.org/CAE/grants/grant-programs-and-applications/) since 2004. These grants are made by the Individual Artists Commission and can be up to $15,000. Preliminary analysis shows us that even though women have got more in total grants than men since 2004, the average grant amount for women is slightly lower -- though by $136.
 
 
 ### Methodology and caveats
@@ -18,7 +18,7 @@ The caveats are basically:
 
 ### Past research and articles
 
-An [interview of Tom DeCaigny](http://ebar.com/news/article.php?sec=news&article=71373) on how he is fighting to fund individual artists in a city that is increasingly expensive to live in for artists.
+An [interview of Tom DeCaigny](http://ebar.com/news/article.php?sec=news&article=71373), the director of the Commission, on how he is fighting to fund individual artists in a city that is increasingly expensive to live in for artists.
 
 I want to see how the grants are given out, just to glean if there is any particular preference to one gender or the other -- or even if one gender has more artists than the other.
 
@@ -26,11 +26,11 @@ I want to see how the grants are given out, just to glean if there is any partic
 
 Note: if you want to __clone__ this repo from Github, run this:
 
-    git clone https://github.com/compciv/gendered-pulitzer-board
+    git clone https://github.com/ssdatar/compciv-2016.git
 
-It will create a new sub-folder named `gendered-pulitzer-board`. This repo includes the `tempdata` folder: you should delete it manually and run all the scripts to see the project build itself from scratch.
+This will clone the entire compciv-2016 repo, and you can find this project under __projects/gender-detector-data__
 
-Simply run the following scripts provided in this repo in this order:
+Run the following scripts provided in this repo in this order:
 
 
 ### fetch_gender_data.py
@@ -42,19 +42,15 @@ Downloads the raw [babyname data from the Social Security Administration](https:
 
 Selects and compiles the baby name records for every five years between 1900 and 1991, and adds the records for 2014.
 
-### fetch_pulitzer_board_pages.py
+### fetch_artist_data.py
 
-Scrapes the raw JSON corresponding to each board page on pulitzer.org.
+Downloads the CSV file from the [SF Open Data portal](https://data.sfgov.org/Culture-and-Recreation/San-Francisco-Arts-Commission-Grants-FY2004-2014/mxvq-mfs5)
 
-For example, here's the 1980 board's webpage: http://www.pulitzer.org/board/1980
+This produces [tempdata/artists.csv](tempdata/artists.csv) as the CSV file.
 
-Here's the corresponding scraped JSON file: [tempdata/pages/1980.json](tempdata/pages/1980.json)
+### wrangle_data.py
 
-Note: I wouldn't read too much into this script; the AngularJS-heavy Pultizer.org has a fairly unorthodox front-end...no HTML parsing was even done.
-
-### wrangle_pulitzer_board_data.py
-
-Once the JSON files corresponding to each board page were downloaded, I extracted the specific fields I needed for the analysis, particularly the year of membership for each person, and their first and last name (mostly, their first name).
+I downloaded the entire dataset and filtered the data to get those for Individual Arts Commission.
 
 This script produces: [tempdata/wrangled_data.csv](tempdata/wrangled_data.csv)
 
@@ -64,12 +60,9 @@ For each row in [tempdata/wrangled_data.csv](tempdata/wrangled_data.csv), I use 
 
 The `extract_usable_name()` function uses this incredibly naive algorithm to extract the "usable" first name from a given first name string:
 
-- `namestr` is something like `"William B"`
+- `namestr` is something like `"Paul Flores"`
 - split `namestr` by whitespace
-- select the first element, i.e. `"William`
-
-This means that poor `"C.K."` of Charles McClatchy fame will not be joining our analysis...
-
+- select the first element, i.e. `"Paul`
 
 A new file -- [tempdata/classified_data.csv](tempdata/classified_data.csv) -- is produced. Basically, it's wrangled_data.csv with three new columns:
 
@@ -88,21 +81,10 @@ Reads [tempdata/classified_data.csv](tempdata/classified_data.csv) and produces 
 
 Here are some supporting files. You don't actually _run_ these, but they are called by the other files.
 
-### settings.py
-
-This contains constants, like `DATA_DIR`, that are shared across several of the scripts.
-
 
 ### gender.py
 
 This contains the code to load the wrangled gender data and the `detect_gender()` function.
-
-### pulitzer-taxonomy.csv
-
-Um...just something I had to create for myself to efficiently scrape Pulitzer.org's weird Angular-Drupal setup. 
-
-
-
 
 
 
@@ -110,19 +92,22 @@ Um...just something I had to create for myself to efficiently scrape Pulitzer.or
 
 ## Analysis
 
-The female/male ratio for the following facets were calculated
+The gender distribution of the grants given to the individual artists were calculated.
 
-- Across the entire membership since 1968
-- Across the membership for each decade
-- Across the membership in each given year
+The following facets were computed:
+- Grants given to men and women since 2004, average grant amount over the years
+- Grant distribution per year to each gender
+- Types of grants taken up by each gender
+- How many men vs women took up L/G/B/T projects
 
 
-In the time period of 1968 to the current year, an estimated __40+ women__ have served on the Pulitzer Prize board compared to __170+ men__.
+According to the automated analysis, 169 women have got $1.4 million in grants, as opposed to 129 men receiving $1.15 million.
 
-The [2015 board membership](http://www.pulitzer.org/board/2015) was composed of 6 women and 12 men, according to a manual count; the automated analysis counted 6 and 11, respectively, apparently not being able to classify one of the male names. The makeup of the 2015 board is 33% women, which is the tied with 1997 as the highest rate of any year.
+This means that, on an average, the grant amount for women was $8,763. This was $8,899 for men.
 
-According to the automated analysis, the 1970s did not see a single woman on the Pulitzer Board. In the 1980s, about 10% of the board members were women.
+The per year grant gender ratio showed no discernible trend. For four years, men got more money than women, and vice versa for the other seven.
 
+More men have taken up projects focused on LGBT issues than women.
 
 
 
@@ -133,224 +118,302 @@ According to the automated analysis, the 1970s did not see a single woman on the
 The raw printout:
 
 ~~~
-Since 1968, the estimated gender breakdown for the Pulitzer Prize Board membership is:
-  F: 44 20%
-  M: 172 76%
-  NA: 9 4%
------------------------------------------
-Now let's do a decade-by-decade breakdown
-1960
-  F: 0 0%
-  M: 16 89%
-  NA: 2 11%
-1970
-  F: 0 0%
-  M: 32 97%
-  NA: 1 3%
-1980
-  F: 6 9%
-  M: 57 86%
-  NA: 3 5%
-1990
-  F: 16 24%
-  M: 47 71%
-  NA: 3 5%
-2000
-  F: 17 28%
-  M: 43 72%
-  NA: 0 0%
-2010
-  F: 14 33%
-  M: 28 65%
-  NA: 1 2%
------------------------------------------
-Now let's do a year-by-year breakdown
-1968
-  F: 0 0%
-  M: 11 85%
-  NA: 2 15%
-1969
-  F: 0 0%
-  M: 12 92%
-  NA: 1 8%
-1970
-  F: 0 0%
-  M: 13 93%
-  NA: 1 7%
-1971
-  F: 0 0%
-  M: 13 93%
-  NA: 1 7%
-1972
-  F: 0 0%
-  M: 13 93%
-  NA: 1 7%
-1973
-  F: 0 0%
-  M: 13 93%
-  NA: 1 7%
-1974
-  F: 0 0%
-  M: 13 93%
-  NA: 1 7%
-1975
-  F: 0 0%
-  M: 13 93%
-  NA: 1 7%
-1977
-  F: 0 0%
-  M: 15 100%
-  NA: 0 0%
-1978
-  F: 0 0%
-  M: 15 100%
-  NA: 0 0%
-1979
-  F: 0 0%
-  M: 15 100%
-  NA: 0 0%
-1980
-  F: 1 6%
-  M: 16 94%
-  NA: 0 0%
-1981
-  F: 2 12%
-  M: 15 88%
-  NA: 0 0%
-1982
-  F: 2 12%
-  M: 15 88%
-  NA: 0 0%
-1983
-  F: 3 18%
-  M: 14 82%
-  NA: 0 0%
-1984
-  F: 2 11%
-  M: 15 83%
-  NA: 1 6%
-1985
-  F: 2 11%
-  M: 15 83%
-  NA: 1 6%
-1986
-  F: 2 11%
-  M: 15 83%
-  NA: 1 6%
-1987
-  F: 3 18%
-  M: 13 76%
-  NA: 1 6%
-1988
-  F: 2 12%
-  M: 14 82%
-  NA: 1 6%
-1989
-  F: 3 18%
-  M: 13 76%
-  NA: 1 6%
-1990
-  F: 4 22%
-  M: 13 72%
-  NA: 1 6%
-1991
-  F: 5 26%
-  M: 13 68%
-  NA: 1 5%
-1992
-  F: 5 26%
-  M: 13 68%
-  NA: 1 5%
-1993
-  F: 5 26%
-  M: 13 68%
-  NA: 1 5%
-1994
-  F: 5 28%
-  M: 12 67%
-  NA: 1 6%
-1995
-  F: 6 32%
-  M: 12 63%
-  NA: 1 5%
-1996
-  F: 6 32%
-  M: 12 63%
-  NA: 1 5%
-1997
-  F: 6 33%
-  M: 11 61%
-  NA: 1 6%
-1998
-  F: 5 25%
-  M: 15 75%
-  NA: 0 0%
-1999
-  F: 5 25%
-  M: 15 75%
-  NA: 0 0%
-2000
-  F: 4 20%
-  M: 16 80%
-  NA: 0 0%
-2001
-  F: 4 21%
-  M: 15 79%
-  NA: 0 0%
-2002
-  F: 3 17%
-  M: 15 83%
-  NA: 0 0%
-2003
-  F: 4 20%
-  M: 16 80%
-  NA: 0 0%
-2004
-  F: 5 24%
-  M: 16 76%
-  NA: 0 0%
-2005
-  F: 4 21%
-  M: 15 79%
-  NA: 0 0%
-2006
-  F: 4 21%
-  M: 15 79%
-  NA: 0 0%
-2007
-  F: 5 25%
-  M: 15 75%
-  NA: 0 0%
-2008
-  F: 5 26%
-  M: 14 74%
-  NA: 0 0%
-2009
-  F: 5 26%
-  M: 14 74%
-  NA: 0 0%
-2010
-  F: 5 28%
-  M: 13 72%
-  NA: 0 0%
-2011
-  F: 4 22%
-  M: 13 72%
-  NA: 1 6%
-2012
-  F: 5 25%
-  M: 14 70%
-  NA: 1 5%
-2013
-  F: 4 21%
-  M: 14 74%
-  NA: 1 5%
-2014
-  F: 6 32%
-  M: 12 63%
-  NA: 1 5%
-2015
-  F: 6 33%
-  M: 11 61%
-  NA: 1 6%
+---------------------------------------------
+Analyzing gender distribution of grants...
+Since 2004, 129 men have got $1.15 million in grants
+Since 2004, 160 women have got $1.4 million in grants
+Average grant amount for men 8899 dollars
+Average grant amount for women 8763 dollars
+---------------------------------------------
+Analyzing yearly distribution of grants...
+
+
+In the year 2004
+Men got 50000 dollars
+Women got 59900 dollars
+Grant gender ratio 0.83
+
+
+In the year 2005
+Men got 82000 dollars
+Women got 60000 dollars
+Grant gender ratio 1.37
+
+
+In the year 2006
+Men got 132000 dollars
+Women got 131000 dollars
+Grant gender ratio 1.01
+
+
+In the year 2007
+Men got 148700 dollars
+Women got 233600 dollars
+Grant gender ratio 0.64
+
+
+In the year 2008
+Men got 87500 dollars
+Women got 85000 dollars
+Grant gender ratio 1.03
+
+
+In the year 2009
+Men got 110680 dollars
+Women got 121760 dollars
+Grant gender ratio 0.91
+
+
+In the year 2010
+Men got 80000 dollars
+Women got 90000 dollars
+Grant gender ratio 0.89
+
+
+In the year 2011
+Men got 139600 dollars
+Women got 190650 dollars
+Grant gender ratio 0.73
+
+
+In the year 2012
+Men got 129500 dollars
+Women got 98275 dollars
+Grant gender ratio 1.32
+
+
+In the year 2013
+Men got 108000 dollars
+Women got 174460 dollars
+Grant gender ratio 0.62
+
+
+In the year 2014
+Men got 80000 dollars
+Women got 157500 dollars
+Grant gender ratio 0.51
+---------------------------------------------
+Analyzing gender distribution of types of grants...
+Number of men who took up LGBT projects 1
+Grant focus: Women L/G/B/T/Q
+Men: 0
+Women: 62000
+
+
+Number of women who took up LGBT projects 0
+Grant focus: Native American L/G/B/T/Q
+Men: 8500
+Women: 0
+
+
+Number of men who took up LGBT projects 2
+Grant focus: Women African American L/G/B/T/Q
+Men: 0
+Women: 8000
+
+
+Grant focus: Latino American
+Men: 121450
+Women: 0
+
+
+Grant focus: African American Women
+Men: 0
+Women: 93200
+
+
+Grant focus: No specified focus
+Men: 365680
+Women: 16200
+
+
+Grant focus: L/G/B/T/Q Transgender
+Men: 60000
+Women: 5060
+
+
+Grant focus: African American
+Men: 54700
+Women: 10000
+
+
+Grant focus: Women Asian American
+Men: 0
+Women: 9000
+
+
+Grant focus: Women Native American Multiple People of Color
+Men: 0
+Women: 9000
+
+
+Number of men who took up LGBT projects 3
+Grant focus: Women Disabled L/G/B/T/Q
+Men: 0
+Women: 9700
+
+
+Number of men who took up LGBT projects 4
+Grant focus: L/G/B/T/Q Latino American Women
+Men: 0
+Women: 8700
+
+
+Grant focus: Women
+Men: 0
+Women: 453710
+
+
+Number of men who took up LGBT projects 5
+Grant focus: Latino American L/G/B/T/Q Women
+Men: 0
+Women: 42000
+
+
+Number of men who took up LGBT projects 6
+Number of women who took up LGBT projects 1
+Grant focus: Women L/G/B/T/Q Disabled
+Men: 0
+Women: 0
+
+
+Number of women who took up LGBT projects 2
+Grant focus: Asian American L/G/B/T/Q
+Men: 24000
+Women: 0
+
+
+Number of men who took up LGBT projects 7
+Grant focus: Asian American L/G/B/T/Q Women
+Men: 0
+Women: 43600
+
+
+Number of women who took up LGBT projects 3
+Grant focus: Latino American L/G/B/T/Q
+Men: 19000
+Women: 0
+
+
+Number of women who took up LGBT projects 4
+Grant focus: L/G/B/T/Q Native American
+Men: 9000
+Women: 0
+
+
+Number of women who took up LGBT projects 5
+Grant focus: L/G/B/T/Q Asian American
+Men: 18000
+Women: 0
+
+
+Number of women who took up LGBT projects 6
+Grant focus: L/G/B/T/Q African American
+Men: 10000
+Women: 0
+
+
+Grant focus: L/G/B/T/Q
+Men: 162650
+Women: 18100
+
+
+Number of men who took up LGBT projects 8
+Grant focus: African American L/G/B/T/Q Women
+Men: 0
+Women: 9000
+
+
+Number of men who took up LGBT projects 9
+Grant focus: L/G/B/T/Q Women Asian American
+Men: 0
+Women: 10000
+
+
+Grant focus: Asian American Women
+Men: 0
+Women: 283950
+
+
+Number of men who took up LGBT projects 10
+Grant focus: African American L/G/B/T/Q Asian American
+Men: 0
+Women: 9000
+
+
+Grant focus: L/G/B/T/Q Women
+Men: 26000
+Women: 162400
+
+
+Grant focus: Pacific Islander
+Men: 10000
+Women: 0
+
+
+Number of men who took up LGBT projects 11
+Grant focus: Asian American Latino American L/G/B/T/Q Women
+Men: 0
+Women: 10000
+
+
+Number of women who took up LGBT projects 7
+Grant focus: African American L/G/B/T/Q
+Men: 30000
+Women: 0
+
+
+Grant focus: Latino American Women
+Men: 0
+Women: 76175
+
+
+Grant focus: Women Native American
+Men: 0
+Women: 9700
+
+
+Number of men who took up LGBT projects 12
+Grant focus: Women L/G/B/T/Q Multiple People of Color Asian American
+Men: 0
+Women: 8000
+
+
+Grant focus: Asian American
+Men: 199000
+Women: 17100
+
+
+Grant focus: Asian American Latino American African American Pacific Islander
+Men: 10000
+Women: 0
+
+
+Number of men who took up LGBT projects 13
+Grant focus: L/G/B/T/Q Women Latino American
+Men: 0
+Women: 8550
+
+
+Grant focus: Women African American
+Men: 0
+Women: 10000
+
+
+Number of women who took up LGBT projects 8
+Grant focus: L/G/B/T/Q Latino American
+Men: 10000
+Women: 0
+
+
+Grant focus: African American Women Native American
+Men: 10000
+Women: 0
+
+
+Number of men who took up LGBT projects 13
+Number of women who took up LGBT projects 9
+
+In [38]: 
+
 ~~~
