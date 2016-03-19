@@ -414,6 +414,4 @@ Women: 0
 Number of men who took up LGBT projects 13
 Number of women who took up LGBT projects 9
 
-In [38]: 
-
 ~~~
